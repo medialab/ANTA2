@@ -1,0 +1,18 @@
+body {
+    font: 10px sans-serif;
+}
+
+.d3-tip span {
+    color: #ff00c7;
+}
+
+.axis path,
+.axis line {
+    fill: none;
+    stroke: #000;
+    shape-rendering: crispEdges;
+}
+
+.dot {
+    stroke: #000;
+}

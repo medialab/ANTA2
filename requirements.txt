@@ -1,0 +1,12 @@
+requests
+python-dateutil < 2.0
+lxml
+httplib2
+sunburnt
+pymongo
+Pattern
+PyYAML
+networkx
+nltk
+numpy
+wsgiref
