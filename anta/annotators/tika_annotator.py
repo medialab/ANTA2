@@ -94,16 +94,17 @@ def tika_to_metadata(tika, file_path):
 def tikadict_to_metadata(tikadict, file_path):
     metadata = {}
     # Extract file_name
-    metadata["file_name"] = os.path.basename(file_path)
+    metadata["file_name_s"] = os.path.basename(file_path)
     # Extract interesting metadata from tika meta
     # dc:title -> title
     if "dc:title" in tikadict:
         metadata["title"] = tikadict["dc:title"]
-    # dcterms:created -> date_issued and date_year 
+    else:
+        metadata["title"] = ""
+    # dcterms:created -> date
     if "dcterms:created" in tikadict:
-        metadata["date_issued"] = tikadict["dcterms:created"]
-        metadata["date_year"] = tikadict["dcterms:created"][:4]
+        metadata["date"] = tikadict["dcterms:created"]
     # xmpTPg:NPages -> extent_pages
     if "xmpTPg:NPages" in tikadict:
-        metadata["extent_pages"] = tikadict["xmpTPg:NPages"]
+        metadata["extent_pages_s"] = tikadict["xmpTPg:NPages"]
     return metadata

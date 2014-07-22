@@ -13,7 +13,7 @@ from anta.storage.solr_client import SOLRInterface
 
 def read():
     data_dir = config.config["data_dir"]
-    ipcc_path = data_dir + "/IPCC Reports/"
+    ipcc_path = data_dir + "/IPCC/"
     read_collection(ipcc_path)
 
 
@@ -56,9 +56,9 @@ def create_document(root_path, file_path, file_meta, file_text):
     #logging.info("rec_id: {}".format(rec_id))
 
     file_meta["id"] = "IPCC-" + rec_id.strip()
-    content = file_text.strip()
-    file_meta["content"] = content
-    file_meta["text_pos"] = pattern_annotator.extract_text_pos_tags(content, "en", ["NP"])
+    text = file_text.strip()
+    file_meta["text"] = text
+    file_meta["text_anta"] = pattern_annotator.extract_text_pos_tags(text, "en", ["NP"])
 
     return file_meta
 

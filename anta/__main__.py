@@ -8,7 +8,7 @@ import logging
 from anta.util import console
 from anta.util import config
 from anta.storage.solr_client import SOLRInterface
-from anta.readers import enb_reader2
+from anta.readers import enb_reader
 from anta.readers import ipcc_reader
 from anta.readers import nyt_reader
 from anta.readers import unfccc_reader
@@ -41,7 +41,7 @@ def conf_corpus(args):
 def import_documents(args):
     corpus = args.corpus
     logging.info("corpus: {}".format(corpus))
-    #enb_reader2.read()
+    enb_reader.read()
     #ipcc_reader.read()
     #unfccc_reader.read()
     #nyt_reader.read()

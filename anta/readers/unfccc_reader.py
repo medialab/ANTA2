@@ -48,8 +48,8 @@ def read_collection(csv_path, files_path):
                     count += 1
                     if "xmpTPg:NPages" in meta:
                         document["extent_pages"] = meta["xmpTPg:NPages"]
-                    document["content"] = text
-                    document["text_pos"] = pattern_annotator.extract_text_pos_tags(text, "en", ["NP"])
+                    document["text"] = text
+                    document["text_anta"] = pattern_annotator.extract_text_pos_tags(text, "en", ["NP"])
 
                     # index in solr
                     si.add_document(document)

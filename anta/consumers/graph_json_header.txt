@@ -1,0 +1,40 @@
+{
+  "nodesAttributes":[
+    {
+      "id": "node_attr_1",
+      "title": "termDocFreq",
+      "type": "integer"
+    },{
+      "id": "node_attr_2",
+      "title": "termFreqAllDocs",
+      "type": "integer"
+    },{
+      "id": "node_attr_3",
+      "title": "globality",
+      "type": "double"
+    },{
+      "id": "node_attr_4",
+      "title": "locality",
+      "type": "double"
+    },{
+      "id": "node_attr_5",
+      "title": "s",
+      "type": "double"
+    },{
+      "id": "node_attr_6",
+      "title": "v",
+      "type": "double"
+    }
+  ],
+  "edgesAttributes": [
+    {
+      "id": "edge_attr_1",
+      "title": "h",
+      "type": "double"
+    },
+    {
+      "id": "edge_attr_2",
+      "title": "c",
+      "type": "double"
+    }
+  ],

@@ -20,7 +20,7 @@ var svg = d3.select("body").append("svg")
     .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-d3.json("data/gl-enb2.json", function(error, data) {
+d3.json("data/gl-enb.json", function(error, data) {
     data.gl.terms.forEach(function(d) {
         //console.log(d);
     });

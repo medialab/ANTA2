@@ -45,12 +45,12 @@ def convert_csv(csv_path):
                 document["file_url"] = row["url"]
             # content : abstract, snippet, lead_paragraph or not
             if row["abstract"]:
-                document["content"] = row["abstract"]
+                document["description"] = row["abstract"]
             elif row["snippet"]:
-                document["content"] = row["snippet"]
+                document["text"] = row["snippet"]
             elif row["lead_paragraph"]:
-                document["content"] = row["lead_paragraph"]
-                document["text_pos"] = pattern_annotator.extract_text_pos_tags(row["lead_paragraph"], "en", ["NP"])
+                document["text"] = row["lead_paragraph"]
+                document["text_anta"] = pattern_annotator.extract_text_pos_tags(row["lead_paragraph"], "en", ["NP"])
             else:
                 continue
             if row["source"]:

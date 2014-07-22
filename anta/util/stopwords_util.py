@@ -17,5 +17,5 @@ def int_stopwords():
     for x in range(0,1000):
         print x
 
-#merge_stopwords(os.path.join(os.getcwd(),"conf","stop_words_en.txt"))
+merge_stopwords(os.path.join(os.getcwd(),"solr-conf","anta","conf","stopwords.txt"))
 #int_stopwords()

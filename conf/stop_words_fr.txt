@@ -86,6 +86,7 @@ font
 force
 haut
 hors
+http:
 ici
 il
 ils

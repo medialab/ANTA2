@@ -3,6 +3,7 @@
 # coding=utf-8
 
 import os
+import re
 
 def parse_stopwords(language):
     stopwords = []
@@ -30,8 +31,9 @@ def text_to_pattern_tree(text, language):
     return tree
 
 
-def extract_text_pos_tags(text, language, pos_tags):
+def extract_text_pos_tags(text, language, chunck_pos_tags=["NP"], word_pos_tags=["NN", "NNP", "NNS", "NNPS", "JJ", "JJR", "JJS", "RB", "RBR", "RBS", "RP"]):
     result = []
+    number_re_pattern = "\d+(?:\.\d+)?"
     if language == "fr":
         stopwords = stopwords_fr
     elif language == "en":
@@ -39,10 +41,14 @@ def extract_text_pos_tags(text, language, pos_tags):
     tree = text_to_pattern_tree(text, language)
     for sentence in tree:
         for chunk in sentence.chunks:
-            if chunk.type in pos_tags:
-                for lema in chunk.lemmata:
-                    if lema and not lema in stopwords:
-                        result.append(lema)
+            if chunk.type in chunck_pos_tags:
+                for word in chunk.words:
+                    if word.lemma and word.type in word_pos_tags and not word.lemma in stopwords:
+                        # todo : remove .pdf, .jpg
+                        # remove numeric values
+                        tmp = re.sub(number_re_pattern, "", word.lemma)
+                        if tmp:
+                            result.append(tmp)
     return " ".join(result)
 
 

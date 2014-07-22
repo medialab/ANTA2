@@ -4,14 +4,17 @@
 
 import csv
 import logging
+import os
 
 from anta.util import config
+from anta.util import jsonbson
+from anta.annotators import pattern_annotator
 from anta.storage.solr_client import SOLRInterface
 
 
 def read():
     data_dir = config.config["data_dir"]
-    enb_csv_path = data_dir + "/ENB Reports/ENB Reports Complete&Cleaned.csv"
+    enb_csv_path = os.path.join(data_dir, "ENB", "ENB-reports.csv")
     read_collection(enb_csv_path)
 
 
@@ -30,30 +33,21 @@ def read_collection(csv_path):
 
 def convert_csv(csv_path):
     with open(csv_path, 'rb') as csv_file:
-        # id    filename    City    ENB_ref itle    Country Year    text    nb_par  length
-        csv_reader = csv.DictReader(csv_file, delimiter='\t')
+        csv_reader = csv.DictReader(csv_file, delimiter=',')
         for row in csv_reader:
-            document = {}
-            document["corpus"] = "ENB"
-            document["id"] = "ENB-" + row["id"].strip()
-            if row["filename"]:
-                document["file_name"] = row["filename"].strip()
-            if row["City"]:
-                document["city"] = row["City"].strip()
-            if row["ENB_ref"]:
-                document["part_volume"] = row["ENB_ref"][7:9]
-                document["part_number"] = row["ENB_ref"][17:]
-            if row["itle"]:
-                document["title"] = row["itle"].strip()
-            if row["Country"]:
-                document["countries"] = [x.strip() for x in row["Country"].split(";")]
-            if row["Year"]:
-                document["date_year"] = row["Year"].strip()
-            if row["text"]:
-                document["content"] = row["text"].strip()
-            if row["nb_par"]:
-                document["extent_paragraphes"] = row["nb_par"].strip()
-            if row["length"]:
-                document["extent_words"] = row["length"].strip()
-            logging.info(document)
-            yield document
+            text = row["text"]
+            row["text_anta"] = pattern_annotator.extract_text_pos_tags(text, "en", ["NP"])
+            logging.info(row)
+            yield row
+
+
+def test():
+    data_dir = config.config["data_dir"]
+    csv_path = os.path.join(data_dir, "ENB", "ENB-reports.csv")
+    with open(csv_path, 'rb') as csv_file:
+        csv_reader = csv.DictReader(csv_file, delimiter=',')
+        for row in csv_reader:
+            text = row["text"]
+            result = pattern_annotator.parse_text_as_json(text, "en")
+            logging.info(jsonbson.dumps_json(result, True))
+
